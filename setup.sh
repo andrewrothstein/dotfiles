@@ -1,8 +1,8 @@
 #!/bin/env bash
-set -e
+set -ex
 
 install_task() {
-    local -r task_bin_dir="${1:-~/.local/bin}";
+    local -r task_bin_dir=${1:-~/.local/bin};
     local -r task_exe="${task_bin_dir}/task";
     if [ ! -e "${task_exe}" ];
     then
@@ -13,11 +13,12 @@ install_task() {
             -d \
             -b "${task_bin_dir}";
     fi;
+    which task;
     "${task_exe}" --version
 }
 
 clone_tasks() {
-    tasks_dir="${1:-~/.tasks}";
+    tasks_dir=${1:-~/.tasks};
     if [ ! -d "${tasks_dir}" ];
     then
         git clone \
@@ -34,11 +35,8 @@ install_brew() {
     then
         bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi;
-}
-
-activate_brew() {
-    local -r brew_exe="/home/linuxbrew/.linuxbrew/bin/brew";
-    eval "$(${brew_exe} shellenv)"
+    eval "$(${brew_exe} shellenv)";
+    which brew;
 }
 
 install_brewfile() {
@@ -65,13 +63,25 @@ dump_versions() {
     cilium version;
 
     echo "pack version: $(pack --version)";
+
+    emacs --version;
+}
+
+install_spacemacs() {
+    local -r emacs_dir=${1:-~/.emacs.d}
+    if [ ! -e "${emacs_dir}" ];
+    then
+        git clone \
+            "https://github.com/syl20bnr/spacemacs" \
+            "${emacs_dir}";
+    fi;
+    echo emacs info: $(emacs  --batch --eval="(print (concat emacs-version \",build: \" (number-to-string emacs-build-number) \" on \" emacs-build-system))")
 }
 
 install_task;
 clone_tasks;
 
 install_brew;
-activate_brew;
 install_brewfile;
 
 brew tap;
@@ -79,3 +89,4 @@ brew list;
 
 dump_versions;
 
+install_spacemacs;

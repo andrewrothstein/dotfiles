@@ -4,6 +4,7 @@ tap "homebrew/cask-versions"
 # terminal fun
 brew "tmux"
 brew "vim"
+brew "mosh"
 brew "emacs"
 
 # software engineering fun
@@ -11,11 +12,15 @@ brew "git"
 brew "gh"
 brew "glab"
 brew "gitea"
+
 brew "go"
 brew "goreleaser"
+
 brew "cmake"
+brew "ninja"
+
 brew "bazelisk"
-cask "temurin21"
+cask "temurin"
 brew "maven"
 tap "buildpacks/tap"
 brew "pack"
@@ -25,13 +30,16 @@ brew "kind"
 brew "k9s"
 brew "k3d"
 brew "jq"
+brew "kubernetes-helm"
 brew "krew"
 brew "kubectx"
 brew "cilium-cli"
+brew "clusterctl"
 brew "vcluster"
 
 # ci/cd fun
 brew "argo"
+brew "buildkit"
 
 # fun with gitops
 brew "argocd"
@@ -46,6 +54,7 @@ brew "openshift-cli"
 # fun with IaC
 brew "terraform"
 brew "pulumi"
+brew "terragrunt"
 
 # fun with PolicAsCode
 
